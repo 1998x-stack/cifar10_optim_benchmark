@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Write(*)",
+      "Grep(*)",
+      "Update(*)",
+      "Bash(*)",
+      "Bash(rm -rf /workspace/data/xieming/.claude/plugins/marketplaces/warpdotev-claude-code-warp)",
+      "Bash(GIT_SSH_COMMAND=\"ssh -o StrictHostKeyChecking=no\" claude plugin marketplace add warpdotdev/claude-code-warp)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

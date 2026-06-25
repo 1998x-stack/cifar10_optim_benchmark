@@ -1,0 +1,182 @@
+[2026-06-25 04:29:26] INFO     Experiment 'ResNet18_Adam' started at 2026-06-25T04:29:26.249612
+[2026-06-25 04:29:26] INFO     Log directory: /workspace/data/xieming/other-codes/cifar10_optim_benchmark/logs/ResNet18_Adam
+[2026-06-25 04:29:26] WARNING  TensorBoard not available (pip install tensorboard)
+[2026-06-25 04:29:26] INFO     Config:
+{
+  "experiment": {
+    "name": "cifar10_optim_benchmark",
+    "seed": 42,
+    "device": "cuda",
+    "num_workers": 4,
+    "log_level": "INFO"
+  },
+  "data": {
+    "dataset": "CIFAR10",
+    "data_dir": "./data",
+    "download": true,
+    "train_val_split": 0.9,
+    "val_seed": 42,
+    "batch_size": 128,
+    "test_batch_size": 256
+  },
+  "model": {
+    "name": "ResNet18",
+    "num_classes": 10,
+    "pretrained": false
+  },
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "adam": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false
+    },
+    "adamw": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false
+    },
+    "sgd": {
+      "momentum": 0.9,
+      "nesterov": true,
+      "dampening": 0.0
+    },
+    "rmsprop": {
+      "alpha": 0.99,
+      "eps": 1e-08,
+      "momentum": 0.0,
+      "centered": false
+    }
+  },
+  "scheduler": {
+    "name": "CosineAnnealingLR",
+    "step_size": 30,
+    "gamma": 0.1,
+    "milestones": [
+      60,
+      120,
+      160
+    ],
+    "T_max": 200,
+    "eta_min": 0.0
+  },
+  "training": {
+    "epochs": 50,
+    "val_interval": 1,
+    "save_best": true,
+    "early_stop_patience": 20,
+    "gradient_clip_norm": 0.0,
+    "amp": false,
+    "label_smoothing": 0.0
+  },
+  "logging": {
+    "log_dir": "logs/ResNet18_Adam",
+    "log_file": "experiments.log",
+    "tensorboard": true,
+    "wandb": false,
+    "console": true,
+    "metrics_history": true,
+    "checkpoints": true,
+    "save_top_k": 3,
+    "save_last": true
+  }
+}
+[2026-06-25 04:32:41] INFO     Experiment 'ResNet18_Adam' started at 2026-06-25T04:32:41.943027
+[2026-06-25 04:32:41] INFO     Log directory: /workspace/data/xieming/other-codes/cifar10_optim_benchmark/logs/ResNet18_Adam
+[2026-06-25 04:32:41] WARNING  TensorBoard not available (pip install tensorboard)
+[2026-06-25 04:32:41] INFO     Config:
+{
+  "experiment": {
+    "name": "cifar10_optim_benchmark",
+    "seed": 42,
+    "device": "cuda",
+    "num_workers": 4,
+    "log_level": "INFO"
+  },
+  "data": {
+    "dataset": "CIFAR10",
+    "data_dir": "./data",
+    "download": true,
+    "train_val_split": 0.9,
+    "val_seed": 42,
+    "batch_size": 128,
+    "test_batch_size": 256
+  },
+  "model": {
+    "name": "ResNet18",
+    "num_classes": 10,
+    "pretrained": false
+  },
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "adam": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false
+    },
+    "adamw": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false
+    },
+    "sgd": {
+      "momentum": 0.9,
+      "nesterov": true,
+      "dampening": 0.0
+    },
+    "rmsprop": {
+      "alpha": 0.99,
+      "eps": 1e-08,
+      "momentum": 0.0,
+      "centered": false
+    }
+  },
+  "scheduler": {
+    "name": "CosineAnnealingLR",
+    "step_size": 30,
+    "gamma": 0.1,
+    "milestones": [
+      60,
+      120,
+      160
+    ],
+    "T_max": 200,
+    "eta_min": 0.0
+  },
+  "training": {
+    "epochs": 50,
+    "val_interval": 1,
+    "save_best": true,
+    "early_stop_patience": 20,
+    "gradient_clip_norm": 0.0,
+    "amp": false,
+    "label_smoothing": 0.0
+  },
+  "logging": {
+    "log_dir": "logs/ResNet18_Adam",
+    "log_file": "experiments.log",
+    "tensorboard": true,
+    "wandb": false,
+    "console": true,
+    "metrics_history": true,
+    "checkpoints": true,
+    "save_top_k": 3,
+    "save_last": true
+  }
+}
