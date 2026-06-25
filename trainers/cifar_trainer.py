@@ -6,7 +6,7 @@ from typing import Dict
 
 import torch
 import torch.nn as nn
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 
 from core.metrics import MetricsTracker
 from .base import BaseTrainer
@@ -37,7 +37,7 @@ class CIFARTrainer(BaseTrainer):
 
         # AMP
         self.amp_enabled = config.get("training", {}).get("amp", False)
-        self.scaler = GradScaler(enabled=self.amp_enabled)
+        self.scaler = GradScaler(device.type, enabled=self.amp_enabled)
 
         # Label smoothing
         ls = config.get("training", {}).get("label_smoothing", 0.0)
@@ -56,7 +56,7 @@ class CIFARTrainer(BaseTrainer):
             self.optimizer.zero_grad(set_to_none=True)
 
             if self.amp_enabled:
-                with autocast():
+                with autocast(device.type):
                     outputs = self.model(inputs)
                     loss = self.criterion(outputs, targets)
                 self.scaler.scale(loss).backward()
