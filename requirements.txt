@@ -1,0 +1,7 @@
+torch>=2.0
+torchvision>=0.15
+pyyaml
+tensorboard
+dash>=2.0
+plotly>=5.0
+pandas
