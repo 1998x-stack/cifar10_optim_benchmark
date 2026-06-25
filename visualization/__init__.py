@@ -1,3 +1,4 @@
 from .store import MetricsStore
+from . import figures
 
-__all__ = ["MetricsStore"]
+__all__ = ["MetricsStore", "figures"]
