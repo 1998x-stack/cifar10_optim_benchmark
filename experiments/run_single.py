@@ -119,7 +119,7 @@ def _get_scheduler(optimizer_wrapper, config: dict):
         return None
 
 
-def run_single_experiment(config: dict) -> dict:
+def run_single_experiment(config: dict, store=None) -> dict:
     """
     Run one experiment with the given config.
     Returns summary dict with best metrics.
@@ -202,6 +202,8 @@ def run_single_experiment(config: dict) -> dict:
         device=device,
         exp_logger=exp_logger,
         config=config,
+        store=store,
+        experiment_name=exp_name,
     )
 
     # Train

@@ -24,12 +24,16 @@ class CIFARTrainer(BaseTrainer):
         exp_logger,
         config: dict,
         criterion=None,
+        store=None,
+        experiment_name=None,
     ):
         super().__init__(model, device, exp_logger, config)
         self.optimizer_wrapper = optimizer_wrapper
         self.optimizer = optimizer_wrapper.optimizer
         self.scheduler = scheduler
         self.criterion = criterion or nn.CrossEntropyLoss()
+        self.store = store
+        self.experiment_name = experiment_name or "experiment"
 
         # AMP
         self.amp_enabled = config.get("training", {}).get("amp", False)
@@ -116,6 +120,14 @@ class CIFARTrainer(BaseTrainer):
         self.val_loader = val_loader
         metrics = self.train(train_loader, val_loader, num_epochs)
 
+        # Push to visualization store
+        if self.store is not None:
+            self.store.ensure_optimizer(self.experiment_name)
+            for train_entry in metrics.get("train", []):
+                self.store.update(self.experiment_name, phase="train", **train_entry)
+            for val_entry in metrics.get("val", []):
+                self.store.update(self.experiment_name, phase="val", **val_entry)
+
         if test_loader is not None:
             test_metrics = self.test(test_loader)
             metrics["test"] = test_metrics
@@ -124,6 +136,11 @@ class CIFARTrainer(BaseTrainer):
                 f"Test Acc: {test_metrics.get('acc', 0.0):.2f}% | "
                 f"Test Loss: {test_metrics.get('loss', 0.0):.4f}"
             )
+            if self.store is not None:
+                self.store.update(self.experiment_name, phase="test", **test_metrics)
+
+        if self.store is not None:
+            self.store.set_status(self.experiment_name, "done")
 
         return metrics
 

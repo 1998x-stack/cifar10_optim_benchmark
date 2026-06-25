@@ -17,6 +17,7 @@ from .run_single import run_single_experiment
 def run_comparison(
     base_config: dict,
     optimizers: Optional[List[str]] = None,
+    store=None,
 ) -> Dict[str, dict]:
     """
     Run the same experiment with each optimizer.
@@ -48,9 +49,19 @@ def run_comparison(
         # Set a deterministic data_dir seed for fair comparison
         data_cfg = config.get("data", {})
 
-        # Run
-        summary = run_single_experiment(config)
-        results[opt_name] = summary
+        if store is not None:
+            store.ensure_optimizer(opt_name)
+            store.set_status(opt_name, "running")
+
+        try:
+            summary = run_single_experiment(config, store=store)
+            results[opt_name] = summary
+            if store is not None:
+                store.set_status(opt_name, "done")
+        except Exception as e:
+            if store is not None:
+                store.set_status(opt_name, "error")
+            raise
 
         # Clean GPU cache between runs
         if torch.cuda.is_available():
