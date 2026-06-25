@@ -34,7 +34,7 @@ from core.config_loader import ConfigLoader
 from experiments.run_single import run_single_experiment
 from experiments.run_comparison import run_comparison
 from visualization.store import MetricsStore
-from visualization.dashboard import start_dashboard, stop_dashboard
+from visualization.dashboard import start_dashboard
 from visualization.report import generate_report
 
 

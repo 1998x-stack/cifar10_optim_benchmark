@@ -136,9 +136,6 @@ class CIFARTrainer(BaseTrainer):
                 f"Test Acc: {test_metrics.get('acc', 0.0):.2f}% | "
                 f"Test Loss: {test_metrics.get('loss', 0.0):.4f}"
             )
-            if self.store is not None:
-                self.store.update(self.experiment_name, phase="test", **test_metrics)
-
         if self.store is not None:
             self.store.set_status(self.experiment_name, "done")
 

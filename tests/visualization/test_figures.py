@@ -4,6 +4,7 @@ from visualization.figures import (
     build_train_loss_figure,
     build_best_acc_bar,
     build_ranking_table,
+    build_throughput_chart,
 )
 
 
@@ -78,3 +79,11 @@ def test_build_ranking_table_returns_figure():
     assert isinstance(fig, go.Figure)
     # Table has headers and cells
     assert len(fig.data[0].header.values) > 0
+
+
+def test_build_throughput_chart_returns_figure():
+    snap = {
+        "Adam": {"train": [{"epoch": 1, "throughput": 120.0}], "val": [], "status": "done"},
+    }
+    fig = build_throughput_chart(snap)
+    assert isinstance(fig, go.Figure)
