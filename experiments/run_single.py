@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 
 import torch
-from torch.utils.data import random_split, DataLoader
+from torch.utils.data import random_split, DataLoader, Subset
 from torchvision import datasets, transforms
 
 from core.config_loader import ConfigLoader
@@ -54,8 +54,17 @@ def _get_cifar_loaders(config: dict, device: torch.device):
     train_dataset, val_dataset = random_split(
         full_train, [train_len, val_len], generator=generator
     )
-    # Apply eval transform to val split
-    val_dataset.dataset.transform = eval_transform
+    # Subset objects returned by random_split share full_train. Mutating
+    # val_dataset.dataset.transform would silently disable augmentation for
+    # training too. Create a separate view of the same CIFAR-10 training
+    # samples and reuse the exact validation indices for deterministic splits.
+    eval_train = datasets.CIFAR10(
+        root=data_dir,
+        train=True,
+        download=False,  # full_train already checked/downloaded the archive
+        transform=eval_transform,
+    )
+    val_dataset = Subset(eval_train, val_dataset.indices)
 
     test_dataset = datasets.CIFAR10(
         root=data_dir,
